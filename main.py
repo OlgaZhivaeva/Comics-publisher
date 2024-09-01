@@ -48,9 +48,13 @@ def main():
 
     path_to_image = Path('images', f'comics_{comics_number}.png')
 
-    fetch_and_save(comics_url, path_to_image)
-    send_comics_and_comment(bot, tg_chat_id, path_to_image, comment)
-    Path(path_to_image).unlink(missing_ok=True)
+    try:
+        fetch_and_save(comics_url, path_to_image)
+        send_comics_and_comment(bot, tg_chat_id, path_to_image, comment)
+    except:
+        print("Комикс опубликовать не удалось")
+    finally:
+        Path(path_to_image).unlink(missing_ok=True)
 
 
 if __name__ == "__main__":
